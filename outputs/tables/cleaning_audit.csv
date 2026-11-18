@@ -1,0 +1,7 @@
+step,rows_removed,rows_left
+raw file,0,36564
+keep Fire and Explosion types,10384,26180
+drop missing alarm time,0,26180
+drop missing arrival time,1,26179
+drop waits under 10 s,6,26173
+drop waits over 3600 s,5,26168
