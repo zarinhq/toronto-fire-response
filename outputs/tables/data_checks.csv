@@ -1,0 +1,18 @@
+check,passed,detail
+incident ids are unique,True,0 duplicates
+only Fire and Explosion types,True,
+waits inside the allowed range,True,"min 11 s, max 1736 s"
+alarm and arrival times all present,True,
+at least 99% of incidents have usable coordinates,True,99.99%
+at least 99% of incidents fall inside a neighbourhood,True,99.71%
+at least 99% of incident station codes match a real station,True,99.90% match; 26 do not
+distance to nearest station is between 0 and 40 km,True,max 5.8 km
+158 neighbourhoods in the boundary file,True,158
+census has 158 neighbourhoods,True,158
+boundary codes equal census codes,True,
+no missing census values,True,
+census percentages are between 0 and 100,True,
+every station matches a fire run area,True,"84 stations, 84 run areas"
+every neighbourhood has results,True,158
+shrink factors are between 0 and 1,True,
+each range contains its estimate,True,
