@@ -1,0 +1,7 @@
+variant,rank_corr,top10_overlap,clearly_slow,five_still_clearly_slow,of_how_many
+baseline,1.0,10,30,5,5
+assigned-station distance,0.908,6,36,5,5
+waits of 2 min or more,0.969,9,41,4,5
+years 2011 to 2022,0.976,10,39,4,5
+flexible distance (bands),0.972,8,32,5,5
+with distance squared,0.993,9,30,5,5

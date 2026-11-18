@@ -1,0 +1,10 @@
+check,n,per_km_pct,lo,hi,night_pct
+baseline (nearest station),26092,29.51,26.94,32.13,16.12
+"nearest, same rows",26066,29.51,26.93,32.13,16.15
+assigned station,26066,17.88,14.03,21.85,16.35
+assigned is also nearest,21439,30.7,28.04,33.41,17.53
+"assigned, within 5 km",25893,23.9,21.95,25.87,16.76
+waits 10 to 900 s,26041,29.24,26.68,31.84,16.13
+waits 60 to 3600 s,25990,29.07,26.49,31.71,15.33
+waits 120 to 3600 s,25592,28.89,26.28,31.56,13.59
+waits 120 to 900 s,25541,28.63,26.08,31.23,13.59
