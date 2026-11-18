@@ -1,0 +1,23 @@
+{
+  "clearly_fast_count": 35,
+  "clearly_slow_count": 30,
+  "distance_ci_hi": 32.13413232317486,
+  "distance_ci_lo": 26.936307840522744,
+  "distance_pct_per_km": 29.509145996778518,
+  "distance_pct_per_km_model1": 29.081306017834585,
+  "distance_pct_per_km_model3": 27.044279204762447,
+  "incidents_clean": 26168,
+  "incidents_modelled": 26092,
+  "median_wait_s": 304.0,
+  "night_pct": 16.12169221214119,
+  "p90_wait_s": 435.0,
+  "r2_model2": 0.18181664918502016,
+  "raw_top10_vs_adjusted_top10_overlap": 1,
+  "slow_and_high_risk": [
+    "Flemingdon Park",
+    "Fenside-Parkwoods",
+    "Parkwoods-O'Connor Hills",
+    "Don Valley Village",
+    "Mount Olive-Silverstone-Jamestown"
+  ]
+}
