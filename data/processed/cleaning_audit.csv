@@ -1,0 +1,7 @@
+stage,rows_removed,rows_remaining
+rows in raw file,0,36564
+incident type not 01 or 02,10384,26180
+missing alarm time,0,26180
+missing arrival time,1,26179
+wait under 10 s (negative or implausible),6,26173
+wait over 3600 s (1 hour),5,26168
