@@ -31,7 +31,7 @@ def clean_incidents(raw):
     df["station"] = df["Incident_Station_Area"].astype(str).str.strip().replace({"": pd.NA, "nan": pd.NA})
     df["year"] = df["alarm"].dt.year
     df["hour"] = df["alarm"].dt.hour
-    df["is_weekend"] = (df["alarm"].dt.dayofweek >= 5).astype(int)
+    df["is_weekend"] = (df["alarm"].dt.day_of_week >= 5).astype(int)
     df["daypart"] = pd.cut(df["hour"], config.DAYPART_EDGES, labels=config.DAYPART_LABELS).astype(str)
 
     audit = pd.DataFrame(log, columns=["step", "rows_removed", "rows_left"])
