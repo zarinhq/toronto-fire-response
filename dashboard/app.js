@@ -23,12 +23,8 @@ function show(id) {
     document.getElementById("p-" + k).hidden = !on;
     document.getElementById("t-" + k).setAttribute("aria-selected", on);
   });
+  if (DRAW[id]) DRAW[id]();              
   history.replaceState(null, "", "#" + id);
 }
 
 show(location.hash.slice(1));
-
-document.getElementById("p-overview").insertAdjacentHTML(
-  "beforeend",
-  `<p>Data loaded: ${D.hoods.length} neighbourhoods, median wait ${D.overall.median_s} seconds.</p>`
-);
