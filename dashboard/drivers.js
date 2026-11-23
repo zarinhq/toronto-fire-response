@@ -45,4 +45,5 @@ DRAW.drivers = function () {
     q.map((r, i) => [qLabels[i], nf(r.n), `${r.km_min.toFixed(2)}–${r.km_max.toFixed(2)}`, mmss(r.median_s)]));
   fillTable(document.getElementById("tb-day"), ["Time of day", "Fires", "Median", "Slowest 1 in 10 over"],
     order.map((k) => [names[k], nf(day(k).n), mmss(day(k).median_s), mmss(day(k).p90_s)]));
+drawForest();
 };

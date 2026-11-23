@@ -124,3 +124,9 @@ td.num, th.num { text-align: right; }
 .infobox[hidden] { display: none; }
 .chart { width: 100%; position: relative; }
 svg text { font-family: var(--font-body); }
+/* slow list */
+.five { border-left: 4px solid var(--red); padding-left: 14px; }
+.list ol { margin: 0; padding: 0; list-style: none; }
+.list li { display: grid; grid-template-columns: 24px 1fr auto; gap: 8px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.list li .r { color: var(--muted); font-size: 13px; }
+.list li.both { background: var(--accent-wash); margin: 0 -8px; padding: 8px; border-radius: 8px; }
