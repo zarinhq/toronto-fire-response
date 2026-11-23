@@ -16,15 +16,28 @@ TABS.forEach(([id, label]) => {
   tablist.appendChild(b);
 });
 
+let currentTab = "overview";
+
 function show(id) {
   if (!TABS.some((t) => t[0] === id)) id = "overview";
+  currentTab = id;
   TABS.forEach(([k]) => {
     const on = k === id;
     document.getElementById("p-" + k).hidden = !on;
     document.getElementById("t-" + k).setAttribute("aria-selected", on);
   });
-  if (DRAW[id]) DRAW[id]();              
-  history.replaceState(null, "", "#" + id);
+  if (DRAW[id]) DRAW[id]();              // draw the tab, if its file exists yet
+  history.replaceState(null, "", "#" + id + (id === "map" && selectedId ? "/" + selectedId : ""));
 }
 
-show(location.hash.slice(1));
+// Redraw when the window is resized, so charts fit the new width.
+let resizeTimer;
+addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { if (DRAW[currentTab]) DRAW[currentTab](); }, 150);
+});
+
+// An address like  index.html#map/133  opens the map with that neighbourhood selected.
+const [startTab, startHood] = location.hash.slice(1).split("/");
+if (startHood && hoodById[startHood]) selectedId = startHood;
+show(startTab);
