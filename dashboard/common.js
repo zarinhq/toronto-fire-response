@@ -39,3 +39,12 @@ function showTip(html, e) {
 }
 function hideTip() { tipEl.style.opacity = 0; }
 document.addEventListener("scroll", hideTip, { passive: true });
+
+// The little "i" buttons: click one to show or hide its explanation box.
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".info");
+  if (!b) return;
+  const box = document.getElementById(b.dataset.info);
+  box.hidden = !box.hidden;
+  b.setAttribute("aria-expanded", !box.hidden);
+});

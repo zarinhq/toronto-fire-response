@@ -39,3 +39,27 @@ function fillTable(el, head, rows) {
   el.innerHTML = "<thead><tr>" + head.map((h, i) => `<th class="${i ? "num" : ""}">${h}</th>`).join("") + "</tr></thead><tbody>" +
     rows.map((r) => "<tr>" + r.map((c, i) => `<td class="${i ? "num" : ""}">${c}</td>`).join("") + "</tr>").join("") + "</tbody>";
 }
+
+// Vertical bars with the value written above each bar.
+// items: [{label, sub, value, text, tip}]
+function barChart(el, items, label) {
+  const w = Math.max(260, el.clientWidth), h = 250, top = 30, bot = 40, L = 8, R = 8;
+  const n = items.length, gap = Math.max(14, w * 0.04);
+  const bw = (w - L - R - gap * (n - 1)) / n;
+  const max = Math.max(...items.map((i) => i.value)) * 1.08;
+  let s = `<line x1="${L}" x2="${w - R}" y1="${h - bot}" y2="${h - bot}" stroke="${css("--axis")}"/>`;
+  items.forEach((it, i) => {
+    const x = L + i * (bw + gap), bh = (it.value / max) * (h - bot - top), y = h - bot - bh;
+    s += `<g data-tip="${esc(it.tip)}"><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${css("--blue")}"/>` +
+         `<rect x="${x}" y="${top - 8}" width="${bw}" height="${h - bot - top + 8}" fill="transparent"/></g>` +
+         `<text x="${x + bw / 2}" y="${y - 8}" text-anchor="middle" font-size="15" font-weight="600" fill="${css("--ink")}">${it.text}</text>` +
+         `<text x="${x + bw / 2}" y="${h - bot + 18}" text-anchor="middle" font-size="12.5" fill="${css("--ink2")}">${esc(it.label)}</text>` +
+         (it.sub ? `<text x="${x + bw / 2}" y="${h - bot + 33}" text-anchor="middle" font-size="11.5" fill="${css("--muted")}">${esc(it.sub)}</text>` : "");
+  });
+  el.innerHTML = svgWrap(w, h, s, label);
+  el.onpointermove = (e) => {
+    const g = e.target.closest("[data-tip]");
+    if (g) showTip(g.getAttribute("data-tip"), e); else hideTip();
+  };
+  el.onpointerleave = hideTip;
+}

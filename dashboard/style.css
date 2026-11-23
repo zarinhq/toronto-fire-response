@@ -113,3 +113,14 @@ table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-nu
 th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
 th { font-weight: 600; color: var(--ink2); font-size: 13px; position: sticky; top: 0; background: var(--surface); }
 td.num, th.num { text-align: right; }
+
+/* charts and the "i" boxes */
+.grid2 { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+.charthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.info { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--axis); background: var(--surface); cursor: pointer; font: 600 13px/1 var(--font-body); color: var(--ink2); }
+.info:hover { background: var(--wash); }
+.infobox { background: var(--wash); border-radius: 10px; padding: 10px 12px; font-size: 14px; color: var(--ink2); margin: 6px 0 10px; }
+.infobox[hidden] { display: none; }
+.chart { width: 100%; position: relative; }
+svg text { font-family: var(--font-body); }
