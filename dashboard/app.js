@@ -27,3 +27,8 @@ function show(id) {
 }
 
 show(location.hash.slice(1));
+
+document.getElementById("p-overview").insertAdjacentHTML(
+  "beforeend",
+  `<p>Data loaded: ${D.hoods.length} neighbourhoods, median wait ${D.overall.median_s} seconds.</p>`
+);
