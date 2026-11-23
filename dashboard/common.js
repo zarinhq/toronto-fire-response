@@ -1,4 +1,5 @@
-const DRAW = {};                      
+const DRAW = {};
+const MINUS = "−";                  // typographic minus sign, used in labels like "−9%"
 
 const nf = (n) => Math.round(n).toLocaleString("en-CA");                 
 const mmss = (s) => {                                                  
@@ -16,3 +17,25 @@ const TAGS = {
   Screening: '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1.5 11 10.5H1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
 };
 const tag = (kind) => `<span class="tag">${TAGS[kind]}${kind}</span>`;
+
+// ---- colour helpers -------------------------------------------------------
+const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const hex2rgb = (h) => [1, 3, 5].map((i) => parseInt(h.replace("#", "").substr(i - 1, 2), 16));
+function mix(a, b, t) {                  // blend colour a toward colour b by t (0 to 1)
+  const A = hex2rgb(a), B = hex2rgb(b);
+  return "rgb(" + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(",") + ")";
+}
+
+// ---- the little hover box ---------------------------------------------------
+const tipEl = document.getElementById("tip");
+function showTip(html, e) {
+  tipEl.innerHTML = html;
+  tipEl.style.opacity = 1;
+  let x = e.clientX + 14, y = e.clientY + 14;
+  if (x + tipEl.offsetWidth > innerWidth - 8) x = e.clientX - tipEl.offsetWidth - 14;
+  if (y + tipEl.offsetHeight > innerHeight - 8) y = e.clientY - tipEl.offsetHeight - 14;
+  tipEl.style.left = x + "px";
+  tipEl.style.top = y + "px";
+}
+function hideTip() { tipEl.style.opacity = 0; }
+document.addEventListener("scroll", hideTip, { passive: true });
