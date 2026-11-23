@@ -24,7 +24,7 @@ a { color: var(--accent); }
 
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 header.top { padding: 28px 0 8px; }
-.eyebrow { color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin: 0; }
+.eyebrow { color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; margin: 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 h1 { font: 700 clamp(30px, 5.2vw, 52px)/1.04 var(--font-head); letter-spacing: -.02em; margin: 10px 0 14px; max-width: 18ch; }
 .lede { font-size: clamp(17px, 2.1vw, 21px); line-height: 1.45; max-width: 46em; margin: 0 0 6px; }
 
@@ -144,3 +144,8 @@ pre { background: var(--wash); border-radius: 10px; padding: 12px 14px; overflow
 .steps { counter-reset: s; padding: 0; list-style: none; margin: 0; }
 .steps li { counter-increment: s; position: relative; padding: 0 0 14px 40px; }
 .steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+/* footer and theme button */
+.theme { white-space: nowrap; flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; text-transform: none; letter-spacing: 0; color: var(--ink2); }
+.theme:hover { background: var(--wash); }
+footer { border-top: 1px solid var(--line); padding: 22px 0 40px; margin-top: 40px; color: var(--ink2); font-size: 14px; }
+@media print { nav.tabs, .theme { display: none; } section.panel[hidden] { display: block; } }

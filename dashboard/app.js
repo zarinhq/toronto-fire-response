@@ -36,6 +36,13 @@ addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => { if (DRAW[currentTab]) DRAW[currentTab](); }, 150);
 });
+// Light / dark button: flips the theme, then redraws the tab so the charts pick up the new colours.
+document.getElementById("theme").addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  show(currentTab);
+});
 
 // An address like  index.html#map/133  opens the map with that neighbourhood selected.
 const [startTab, startHood] = location.hash.slice(1).split("/");
