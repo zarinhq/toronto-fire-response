@@ -27,11 +27,11 @@ DRAW.slow = function () {
     </div>`).join("");
 
   document.getElementById("p-slow").innerHTML = `
-    <h2>Why “slowest” changes once distance is counted</h2>
-    <p class="sub">Ranking by raw wait mostly picks the neighbourhoods furthest from a station. Ranking by delay beyond what distance explains picks different places. Only ${both.size === 1 ? "one neighbourhood is" : both.size + " neighbourhoods are"} in both top-10 lists.</p>
+    <h2>Who waits longer than they should?</h2>
+    <p class="sub">The <b>raw wait</b> is the typical (median) wait with nothing adjusted, so the left list mostly picks neighbourhoods far from a station. The right list compares each neighbourhood with what its distance, time of day and year predict, and picks different places. Only ${both.size === 1 ? "one neighbourhood is" : both.size + " neighbourhoods are"} in both top-10 lists.</p>
     <div class="grid2 list">
-      <div class="card"><h3>Longest raw wait</h3><p class="cap">Middle wait per neighbourhood. ${tag("Measured")}</p><ol>${rawList}</ol></div>
-      <div class="card"><h3>Slowest beyond what distance explains</h3><p class="cap">Adjusted delay, with 95% range. ${tag("Estimated")}</p><ol>${adjList}</ol></div>
+      <div class="card"><h3>Longest raw wait</h3><p class="cap">The typical (median) wait, nothing adjusted. ${tag("Measured")}</p><ol>${rawList}</ol></div>
+      <div class="card"><h3>Slowest after allowing for distance</h3><p class="cap">How much longer than expected, with the range we are 95% sure of. ${tag("Estimated")}</p><ol>${adjList}</ol></div>
     </div>
     <h2 style="margin-top:28px">Five to watch</h2>
     <p class="sub">These five are clearly slower than expected <i>and</i> in the top quarter on two crude building-risk measures (share of homes built before 1980, share in apartment buildings of five or more storeys). This is a screening list for a closer look, not a finding that anyone is at higher risk. ${tag("Screening")}</p>

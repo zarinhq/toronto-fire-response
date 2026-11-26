@@ -7,10 +7,10 @@ DRAW.wards = function () {
   const clear = (w) => w.lo > 0 || w.hi < 0;
 
   document.getElementById("p-wards").innerHTML = `
-    <h2>The same question by city ward</h2>
+    <h2>What about my ward?</h2>
     <p class="sub">Councillors are asked about wards, so here is the same analysis by the current 25 wards. It covers 2018–2024 only (${nf(D.ward_n)} fires), because earlier records use the old 44-ward numbers. ${slower} wards are clearly slower than expected and ${faster} clearly faster. Ward numbers only; the file has no ward names.</p>
     <div class="card">
-      <div class="charthead"><div><h3>Delay beyond expected, by ward (2018–2024)</h3>
+      <div class="charthead"><div><h3>How much longer than expected, by ward (2018–2024)</h3>
         <p class="cap">Ward ${first.ward} is the slowest at ${pc(first.adj)} (range ${pc(first.lo)} to ${pc(first.hi)}); Ward ${last.ward} the fastest at ${pc(last.adj)}.</p></div>
         <button class="info" data-info="i-wards" aria-expanded="false" aria-label="How to read this chart">i</button></div>
       <div class="infobox" id="i-wards" hidden>Same method as the map, with wards as the groups. The file mixes two ward numbering systems (44 wards before 2018, 25 since), so only 2018 onward can be used, which means fewer incidents per ward and wider ranges. ${tag("Estimated")}</div>

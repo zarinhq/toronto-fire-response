@@ -19,8 +19,8 @@ function hoverTips(el) {
 
 DRAW.quality = function () {
   document.getElementById("p-quality").innerHTML = `
-    <h2>Data quality and limits</h2>
-    <p class="sub">What went into the numbers, what was thrown away, and what could still be wrong.</p>
+    <h2>Can you trust the numbers?</h2>
+    <p class="sub">What went into the numbers, what was thrown away, and what could still be wrong. Waits are measured from the alarm to the first truck arriving.</p>
     <div class="grid2">
       <div class="card"><h3>From raw file to analysis</h3>
         <p class="cap">Only fires and explosions (types 01 and 02) with waits between 10 seconds and 1 hour are kept. ${tag("Measured")}</p>

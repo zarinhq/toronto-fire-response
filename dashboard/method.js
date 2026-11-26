@@ -3,7 +3,7 @@ DRAW.method = function () {
   const h = hoodById["133"];                         // Centennial Scarborough, the slowest after adjusting
 
   document.getElementById("p-method").innerHTML = `
-    <h2>Method and download</h2>
+    <h2>How this was made</h2>
     <p class="sub">Everything on this page can be rebuilt from the City’s open files with one command.</p>
     <div class="grid2">
       <div class="card"><h3>How the numbers were made</h3>
@@ -35,7 +35,7 @@ DRAW.method = function () {
         <p class="note" id="copymsg" role="status" style="margin-bottom:0"></p></div>
     </div>
     <div class="card" style="margin-top:14px"><h3>Words used here</h3>
-      <p class="note"><b>Adjusted delay:</b> how much longer (or shorter) the typical wait is than the model expects for that distance, time of day and year. <b>Clearly slower:</b> the 95% range is entirely above zero. <b>Shrinkage:</b> a way of not over-reading neighbourhoods with few incidents. <b>Median:</b> the middle value, half of waits are shorter. <b>p90:</b> nine in ten waits are shorter than this.</p></div>`;
+      <p class="note"><b>Raw wait:</b> the typical (median) wait with nothing adjusted. <b>Adjusted delay:</b> how much longer (or shorter) the typical wait is than the model expects for that distance, time of day and year. <b>Clearly slower:</b> the 95% range is entirely above zero. <b>Shrinkage:</b> a way of not over-reading neighbourhoods with few incidents. <b>Median:</b> the middle value, half of waits are shorter. <b>p90:</b> nine in ten waits are shorter than this.</p></div>`;
 
   // CSV download: build the file in the browser from the data already on the page
   document.getElementById("dl").addEventListener("click", () => {

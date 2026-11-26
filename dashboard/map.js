@@ -166,8 +166,8 @@ const flipHTML = () => `<div class="flip" role="group" aria-label="Choose what t
 
 DRAW.map = function () {
   document.getElementById("p-map").innerHTML = `
-    <h2>Find your neighbourhood</h2>
-    <p class="sub">Flip between the raw wait and the picture once distance, time of day and year are counted. Grey outlines mark areas clearly different from expected.</p>
+    <h2>Where do waits differ?</h2>
+    <p class="sub">The <b>raw wait</b> is the typical (median) wait with nothing adjusted. Flip the switch to see the map after allowing for distance, time of day and year. Grey outlines mark areas clearly different from expected.</p>
     <div class="maplayout">
       <div class="card">
         <label for="q" class="note" style="display:block;margin-bottom:6px">Find a neighbourhood</label>

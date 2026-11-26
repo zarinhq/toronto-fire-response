@@ -18,7 +18,7 @@ function drawForest() {
   document.getElementById("p-drivers").insertAdjacentHTML("beforeend", `
     <div class="card" style="margin-top:14px">
       <div class="charthead"><div><h3>How much longer each extra kilometre adds, under ${checks.length - 1} variations</h3>
-        <p class="cap">The main estimate (filled dot) is ${pc(KN.distance_pct_per_km)} per km. Every variation agrees on direction; the size runs ${low}–${high}% depending on how distance is measured.</p></div>
+        <p class="cap">Each dot is the same calculation done a different way. The main estimate (filled dot) is ${pc(KN.distance_pct_per_km)} per km. Every variation agrees on direction; the size runs ${low}–${high}% depending on how distance is measured.</p></div>
         <button class="info" data-info="i-forest" aria-expanded="false" aria-label="How to read this chart">i</button></div>
       <div class="infobox" id="i-forest" hidden>Each row repeats the main estimate a different way (different cut-offs for unusual waits, or measuring distance to the station that responded instead of the nearest one). The dot is the best estimate; the line is the 95% range. The direction never changes; the size depends on how distance is measured. ${tag("Estimated")}</div>
       <div class="chart" id="c-forest"></div>

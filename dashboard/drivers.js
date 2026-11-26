@@ -11,19 +11,19 @@ DRAW.drivers = function () {
   const qLabels = ["Closest quarter", "Second", "Third", "Furthest quarter"];
 
   document.getElementById("p-drivers").innerHTML = `
-    <h2>What drives the wait</h2>
+    <h2>Why do some places wait longer?</h2>
     <p class="sub">Distance to the nearest station does most of the work. Night makes it worse. Weekends barely matter.</p>
     <div class="grid2">
       <div class="card">
-        <div class="charthead"><div><h3>Median wait by distance to the nearest station</h3>
-          <p class="cap">Fires furthest from a station wait about ${((furthest.median_s - closest.median_s) / 60).toFixed(1)} minutes longer at the median.</p></div>
+        <div class="charthead"><div><h3>Typical (median) wait by distance to the nearest station</h3>
+          <p class="cap">Fires furthest from a station wait about ${((furthest.median_s - closest.median_s) / 60).toFixed(1)} minutes longer. Each bar is a quarter of all fires, from closest to furthest.</p></div>
           <button class="info" data-info="i-dist" aria-expanded="false" aria-label="How to read this chart">i</button></div>
         <div class="infobox" id="i-dist" hidden>Fires are split into four equal groups by how far the incident was from its nearest fire station in a straight line. Each bar is the middle wait in that group. ${tag("Measured")}</div>
         <div class="chart" id="c-dist"></div>
         <details class="tbl"><summary>Show as table</summary><table id="tb-dist"></table></details>
       </div>
       <div class="card">
-        <div class="charthead"><div><h3>Median wait by time of day</h3>
+        <div class="charthead"><div><h3>Typical (median) wait by time of day</h3>
           <p class="cap">Nights are about ${nightExtra} seconds slower at the median, and the model puts night at ${pc(KN.night_pct, 0)} after distance is counted.</p></div>
           <button class="info" data-info="i-day" aria-expanded="false" aria-label="How to read this chart">i</button></div>
         <div class="infobox" id="i-day" hidden>Morning is 6am to noon, afternoon noon to 6pm, evening 6pm to midnight, night midnight to 6am. Bars show the middle wait in each period. ${tag("Measured")}</div>
