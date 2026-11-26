@@ -1,29 +1,27 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Who waits longest for the fire department? · Toronto</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who waits longest for the fire department? · Toronto</title>
+<link rel="stylesheet" href="style.css"></head>
 <body>
-    <div id="tip" role="tooltip"></div>
-  <header class="top">
-    <div class="wrap">
+  <div id="tip" role="tooltip"></div>
+  <div class="app">
+    <aside class="side">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="#9fc0bc" stroke-width="2"/><path d="M16 8v8l5 3" stroke="#f08a4b" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
+        <div><b>Fire response</b></div>
+      </div>
+      <nav class="sidenav" aria-label="Sections"><div id="tablist" role="tablist" aria-orientation="vertical"></div></nav>
+      <div class="side-foot">
+        <button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / dark</button>
+      </div>
+    </aside>
+    <div class="content">
+  <header class="top"><div class="wrap">
       <div class="eyebrow"><span>Toronto Fire Services · Fire incidents 2011–2024 · City of Toronto Open Data</span>
-        <button class="theme" id="theme" type="button" aria-label="Switch between light and dark">Light / dark</button></div>
+</div>
       <h1>Who waits longest for the fire department?</h1>
       <p class="lede">Where you live in Toronto shifts how long the first fire truck takes, mostly because of distance to the nearest station, and some neighbourhoods wait longer than their distance explains.</p>
-    </div>
-  </header>
-
-  <nav class="tabs" aria-label="Sections">
-    <div class="wrap" role="tablist" id="tablist"></div>
-  </nav>
-
+  </div></header>
   <main class="wrap">
     <section class="panel" id="p-overview" role="tabpanel"><h2>Overview</h2></section>
     <section class="panel" id="p-map" role="tabpanel" hidden><h2>Find your neighbourhood</h2></section>
@@ -32,13 +30,13 @@
     <section class="panel" id="p-wards" role="tabpanel" hidden><h2>The same question by city ward</h2></section>
     <section class="panel" id="p-quality" role="tabpanel" hidden><h2>Data quality and limits</h2></section>
     <section class="panel" id="p-method" role="tabpanel" hidden><h2>Method and download</h2></section>
-    </main>
-    <footer><div class="wrap">
-        <p style="margin:0 0 6px"><b>Data:</b> City of Toronto Open Data, under the Open Government Licence – Toronto: Fire Incidents, Fire Station Locations, Neighbourhoods, Neighbourhood Profiles (2021 census). Straight-line distances are used, not driving routes.</p>
-        <p style="margin:0">An independent open-data project, not an analysis by the City or Toronto Fire Services.</p>
-    </div></footer>
-  
-
+  </main>
+  <footer><div class="wrap">
+    <p style="margin:0 0 6px"><b>Data:</b> City of Toronto Open Data, under the Open Government Licence – Toronto: Fire Incidents, Fire Station Locations, Neighbourhoods, Neighbourhood Profiles (2021 census). Straight-line distances are used, not driving routes.</p>
+    <p style="margin:0">An independent open-data project, not an analysis by the City or Toronto Fire Services.</p>
+  </div></footer>
+    </div>
+  </div>
   <script src="data.js"></script>
   <script src="common.js"></script>
   <script src="charts.js"></script>
@@ -52,5 +50,4 @@
   <script src="caveats.js"></script>
   <script src="method.js"></script>
   <script src="app.js"></script>
-</body>
-</html>
+</body></html>
