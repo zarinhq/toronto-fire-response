@@ -42,6 +42,9 @@ DRAW.overview = function () {
     <div class="tiles">
       ${tiles.map(([v, l, t]) => `<div class="tile"><div class="v">${v}</div><div class="l">${l}</div><div class="tagrow">${tag(t)}</div></div>`).join("")}
     </div>
+    ${raceHTML()}
+
+    <div class="how">
 
     <div class="how">
       <h3>How to read this page</h3>
@@ -65,4 +68,5 @@ DRAW.overview = function () {
       <p class="note" style="margin:.3em 0 0">“Slower than expected” is not the same as “underserved”, and nothing here says anyone was put at risk. The file covers a subset of calls (about 1,900 a year), the census data is from 2021, and the risk measures are crude. The Data quality tab shows what could change the numbers.</p>
     </div>`;
  wireHero();
+ wireRace();
 };

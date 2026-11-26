@@ -249,3 +249,21 @@ details.tbl summary { color: var(--accent); }
 .hero-map .charthead { align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
 #hmap svg { width: 100%; height: auto; display: block; }
 #hmap path { stroke: var(--surface); stroke-width: .8; cursor: pointer; transition: fill .8s ease; }
+/* the race */
+.race .charthead { margin-bottom: 4px; }
+.lane { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr); gap: 16px; align-items: center; margin: 22px 0 6px; }
+.lane-label b { display: block; font-size: 15px; }
+.lane-label span { display: block; font-size: 13px; color: var(--ink2); line-height: 1.35; margin-top: 2px; }
+.track { position: relative; height: 34px; margin-right: 36px; }
+.rail { position: absolute; left: 0; right: 0; top: 16px; height: 3px; background: var(--axis); border-radius: 2px; }
+.fill { position: absolute; left: 0; top: 15px; height: 5px; border-radius: 3px; background: var(--accent); width: 0; }
+.gapfill { position: absolute; top: 12px; height: 11px; border-radius: 3px; width: 0; background: repeating-linear-gradient(135deg, var(--ember) 0 5px, transparent 5px 9px); opacity: .9; }
+.runner { position: absolute; top: 8px; left: 0; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 0 5px color-mix(in srgb, var(--ember) 25%, transparent); }
+.runner.done { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+.clock { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font: 700 13px var(--font-body); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
+.lane.ticks { margin: 0; }
+.tickrow { position: relative; height: 18px; margin-right: 36px; }
+.tickrow span { position: absolute; top: 0; transform: translateX(-50%); font-size: 12px; color: var(--muted); }
+.race-result { margin: 12px 0 0; min-height: 1.6em; font-size: 15px; }
+.race { margin-bottom: 22px; }
+@media (max-width: 700px) { .lane { grid-template-columns: 1fr; gap: 4px; } .tickrow, .track { margin-right: 30px; } .lane.ticks span:first-child { display: none; } }
