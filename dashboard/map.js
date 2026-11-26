@@ -9,6 +9,16 @@ ranked.forEach((h, i) => (h.rank = i + 1));
 let selectedId = null;
 let onlyClear = false;
 
+// The flip: the same map shown two ways.  "raw" = median wait; "adjusted" = delay beyond what distance explains.
+let mapMode = "adjusted";
+const RAW_EDGES = [255, 285, 315, 345, 375];               // seconds
+const RAW_LABEL = ["under 4:15", "4:15–4:45", "4:45–5:15", "5:15–5:45", "5:45–6:15", "6:15 or more"];
+const rawBin = (sec) => { let i = 0; while (i < RAW_EDGES.length && sec >= RAW_EDGES[i]) i++; return i; };
+const rawColor = (i) => mix(css("--seq0"), css("--seq1"), i / RAW_EDGES.length);   // one teal ramp: darker = longer
+const fillFor = (h) => (mapMode === "raw" ? rawColor(rawBin(h.med)) : binColor(binOf(h.adj)));
+const hoodTip = (h) => `<b>${esc(h.name)}</b><br>Median wait ${mmss(h.med)}<br>${pc(h.adj)} vs expected`;
+const overlapN = () => D.raw10.filter((id) => D.adj10.includes(id)).length;
+
 const binOf = (v) => { let i = 0; while (i < EDGES.length && v >= EDGES[i]) i++; return i; };
 function binColor(i) {                                      // blue for faster, grey in the middle, red for slower
   const t = BIN_T[i];
@@ -16,20 +26,33 @@ function binColor(i) {                                      // blue for faster, 
 }
 
 function paintMap() {
-  D.hoods.forEach((h) => {
-    const p = document.getElementById("n" + h.id);
-    p.setAttribute("fill", binColor(binOf(h.adj)));
-    p.classList.toggle("clear", h.slow || h.fast);          // outlined = clearly different from expected
-    p.classList.toggle("dim", onlyClear && !(h.slow || h.fast));
+  const topSet = new Set(mapMode === "raw" ? D.raw10 : D.adj10);
+  ["n", "m"].forEach((prefix) => D.hoods.forEach((h) => {          // n = big map, m = the small map on the overview
+    const p = document.getElementById(prefix + h.id);
+    if (!p) return;
+    p.style.fill = fillFor(h);                                    // style.fill so the colour change can glide
+    p.classList.toggle("clear", mapMode === "adjusted" && (h.slow || h.fast));
+    p.classList.toggle("top", topSet.has(h.id));                  // ember outline = the ten at the top of this list
+    p.classList.toggle("dim", prefix === "n" && onlyClear && mapMode === "adjusted" && !(h.slow || h.fast));
     p.classList.toggle("sel", h.id === selectedId);
-  });
-  const count = Array(7).fill(0);
-  D.hoods.forEach((h) => count[binOf(h.adj)]++);
-  document.getElementById("swatches").innerHTML = BIN_LABEL
-    .map((l, i) => `<span><i style="background:${binColor(i)}"></i>${l} (${count[i]})</span>`).join("");
-  const sel = selectedId && document.getElementById("n" + selectedId);
-  if (sel) sel.parentNode.appendChild(sel);                 // draw the selected one on top
+  }));
+  const raw = mapMode === "raw", labels = raw ? RAW_LABEL : BIN_LABEL, count = Array(labels.length).fill(0);
+  D.hoods.forEach((h) => count[raw ? rawBin(h.med) : binOf(h.adj)]++);
+  const legend = labels.map((l, i) => `<span><i style="background:${raw ? rawColor(i) : binColor(i)}"></i>${l} (${count[i]})</span>`).join("") +
+    `<span><i class="topkey"></i>${raw ? "10 longest raw waits" : "10 slowest after distance"}</span>`;
+  const caption = raw
+    ? `Darker teal = longer typical wait. The ember outlines mark the 10 longest. Many sit far from a station.`
+    : `Red = slower than distance explains, blue = faster. The ember outlines mark the 10 slowest on this measure. Only ${overlapN()} of them is also in the raw top 10.`;
+  ["swatches", "hswatches"].forEach((id) => { const e = document.getElementById(id); if (e) e.innerHTML = legend; });
+  ["mapcap", "flipcap"].forEach((id) => { const e = document.getElementById(id); if (e) e.innerHTML = caption; });
+  document.querySelectorAll(".flip button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.mode === mapMode));
+  const oc = document.getElementById("onlyclear"); if (oc) oc.disabled = raw;
+  ["n", "m"].forEach((prefix) => { const sel = selectedId && document.getElementById(prefix + selectedId); if (sel) sel.parentNode.appendChild(sel); });
 }
+document.addEventListener("click", (e) => {                         // both flip switches (overview and map tab)
+  const b = e.target.closest(".flip button");
+  if (b) { mapMode = b.dataset.mode; paintMap(); }
+});
 
 // The card on the left that explains one neighbourhood.
 function drawDetail() {
@@ -83,30 +106,41 @@ function setupSearch() {
   const results = document.getElementById("results");
   let active = -1;
 
+  let openAll = false;                                          // true = show every neighbourhood (the dropdown)
+  const byName = [...D.hoods].sort((a, b) => a.name.localeCompare(b.name));
+
   function showResults() {
-    const t = input.value.trim().toLowerCase();
-    const list = t ? D.hoods.filter((h) => h.name.toLowerCase().includes(t))
+    const t = openAll ? "" : input.value.trim().toLowerCase();
+    const list = openAll ? byName : t ? D.hoods.filter((h) => h.name.toLowerCase().includes(t))
       .sort((a, b) => a.name.toLowerCase().indexOf(t) - b.name.toLowerCase().indexOf(t) || a.name.localeCompare(b.name)).slice(0, 8) : [];
     active = -1;
     if (!list.length) {
       results.hidden = !t;
-      results.innerHTML = t ? `<div class="note" style="padding:12px 14px">No neighbourhood matches “${esc(input.value)}”.</div>` : "";
+      results.innerHTML = t ? `<div class="note" style="padding:12px 14px">No neighbourhood matches “${esc(input.value)}”. Try the arrow on the right to browse the full list.</div>` : "";
       input.setAttribute("aria-expanded", !!t);
       return;
     }
-    results.innerHTML = list.map((h) => `<button type="button" role="option" data-id="${h.id}"><span>${esc(h.name)}</span><span class="v">${pc(h.adj, 0)}</span></button>`).join("");
+    results.innerHTML = (openAll ? `<div class="listhead">All ${list.length} neighbourhoods, A to Z</div>` : "") +
+      list.map((h) => `<button type="button" role="option" data-id="${h.id}"><span>${esc(h.name)}</span><span class="v">${pc(h.adj, 0)}</span></button>`).join("");
     results.hidden = false;
     input.setAttribute("aria-expanded", "true");
   }
 
-  input.addEventListener("input", showResults);
+  input.addEventListener("input", () => { openAll = false; showResults(); });
+  input.addEventListener("focus", () => { if (!input.value.trim()) { openAll = true; showResults(); } });
+  document.getElementById("q-drop").addEventListener("click", () => {
+    if (!results.hidden) { closeResults(); return; }
+    openAll = true; showResults(); input.focus();
+  });
   input.addEventListener("keydown", (e) => {
+    if ((e.key === "ArrowDown" || e.key === "ArrowUp") && results.hidden) { openAll = true; showResults(); }
     const b = [...results.querySelectorAll("button")];
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       if (!b.length) return;
       active = (active + (e.key === "ArrowDown" ? 1 : -1) + b.length) % b.length;
       b.forEach((x, i) => x.setAttribute("aria-selected", i === active));
+      b[active].scrollIntoView({ block: "nearest" });
     } else if (e.key === "Enter") {
       e.preventDefault();
       const c = b[active >= 0 ? active : 0];
@@ -126,20 +160,24 @@ function setupSearch() {
   });
 }
 
+const flipHTML = () => `<div class="flip" role="group" aria-label="Choose what the map shows">
+  <button type="button" data-mode="raw" aria-pressed="${mapMode === "raw"}">Longest raw wait</button>
+  <button type="button" data-mode="adjusted" aria-pressed="${mapMode === "adjusted"}">After counting distance</button></div>`;
+
 DRAW.map = function () {
   document.getElementById("p-map").innerHTML = `
     <h2>Find your neighbourhood</h2>
-    <p class="sub">Colour shows how much longer (red) or shorter (blue) the typical wait is than distance, time of day and year predict. Outlined areas are clearly different from expected.</p>
+    <p class="sub">Flip between the raw wait and the picture once distance, time of day and year are counted. Grey outlines mark areas clearly different from expected.</p>
     <div class="maplayout">
       <div class="card">
-        <label for="q" class="note" style="display:block;margin-bottom:6px">Type a neighbourhood name</label>
-        <div class="searchbox"><input id="q" type="search" autocomplete="off" placeholder="e.g. Flemingdon Park" role="combobox" aria-expanded="false" aria-controls="results" aria-autocomplete="list"><div class="results" id="results" role="listbox" hidden></div></div>
+        <label for="q" class="note" style="display:block;margin-bottom:6px">Find a neighbourhood</label>
+        <div class="searchbox"><input id="q" type="text" autocomplete="off" placeholder="Type a name, or open the list" role="combobox" aria-expanded="false" aria-controls="results" aria-autocomplete="list"><button class="drop" id="q-drop" type="button" aria-label="Show all neighbourhoods"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="results" id="results" role="listbox" hidden></div></div>
         <div class="chips" id="chips"></div>
         <div id="detail" aria-live="polite"></div>
       </div>
       <div class="card" id="mapbox">
-        <h3>Delay beyond what is expected, by neighbourhood</h3>
-        <p class="cap">Darker red = longer than expected; darker blue = shorter. Grey = about as expected. ${tag("Estimated")}</p>
+        <div class="charthead"><h3>The same map, two ways</h3>${flipHTML()}</div>
+        <p class="cap" id="mapcap"></p>
         <div id="map"><svg viewBox="0 0 ${D.W} ${D.H}" role="img" aria-label="Map of Toronto neighbourhoods coloured by delay beyond expected. Use the search box or the table for the same information as text.">
           ${D.hoods.map((h) => `<path id="n${h.id}" data-id="${h.id}" d="${h.d}"></path>`).join("")}
         </svg></div>
@@ -155,7 +193,7 @@ DRAW.map = function () {
     const p = e.target.closest("path");
     if (!p) return hideTip();
     const h = hoodById[p.dataset.id];
-    showTip(`<b>${esc(h.name)}</b><br>${pc(h.adj)} vs expected<br>Median wait ${mmss(h.med)}`, e);
+    showTip(hoodTip(h), e);
   });
   map.addEventListener("pointerleave", hideTip);
   document.getElementById("onlyclear").addEventListener("click", (e) => {
