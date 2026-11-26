@@ -49,7 +49,7 @@ DRAW.quality = function () {
   S.forEach((r, i) => {
     const x = 8 + i * (bw + gap), bh = (r.pct / max) * (h - bot - top), y = h - bot - bh, recent = r.year >= 2023;
     s += `<g data-tip="<b>${r.year}</b><br>${r.pct.toFixed(1)}% of ${nf(r.n)} fires waited under 2 minutes">
-      <rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="3" fill="${recent ? css("--red") : css("--blue")}"/>
+      <rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="3" fill="${recent ? css("--red") : css("--bar")}"/>
       <rect x="${x}" y="${top}" width="${bw}" height="${h - bot - top}" fill="transparent"/></g>`;
     if (recent) s += `<text x="${x + bw / 2}" y="${y - 6}" text-anchor="middle" font-size="12.5" font-weight="600" fill="${css("--ink")}">${r.pct.toFixed(1)}%</text>`;
     if (i % (w < 420 ? 2 : 1) === 0)
@@ -71,8 +71,8 @@ DRAW.quality = function () {
     `If the neighbourhood labels carry no information, shuffling them should give a similar picture. It does not: ${KN.shuffle_real_flagged} neighbourhoods are flagged in the real data, against ${KN.shuffle_mean_flagged.toFixed(1)} on average (and at most ${sh[2].flagged}) after shuffling.`;
   const items = [
     { label: "Real data", v: sh[0].flagged, col: css("--red") },
-    { label: "Shuffled, worst run", v: sh[2].flagged, col: css("--blue") },
-    { label: "Shuffled, average", v: sh[1].flagged, col: css("--blue") },
+    { label: "Shuffled, worst run", v: sh[2].flagged, col: css("--bar") },
+    { label: "Shuffled, average", v: sh[1].flagged, col: css("--bar") },
   ];
   const sel = document.getElementById("c-shuffle"), ww = Math.max(260, sel.clientWidth), rh = 40;
   const wide = ww >= 420, lw = wide ? 150 : 0, hh = items.length * rh + 8 + (wide ? 0 : items.length * 8);
@@ -88,6 +88,6 @@ DRAW.quality = function () {
   });
   sel.innerHTML = svgWrap(ww, hh, ss, "Neighbourhoods flagged: real data against shuffled labels");
   hoverTips(sel);
-  
+
   drawCaveats();
 };

@@ -149,3 +149,25 @@ pre { background: var(--wash); border-radius: 10px; padding: 12px 14px; overflow
 .theme:hover { background: var(--wash); }
 footer { border-top: 1px solid var(--line); padding: 22px 0 40px; margin-top: 40px; color: var(--ink2); font-size: 14px; }
 @media print { nav.tabs, .theme { display: none; } section.panel[hidden] { display: block; } }
+/* ===================== "Alarm to arrival" look: lake teal and ember ===================== */
+:root { color-scheme: light; --bg:#f7f3ec; --surface:#fffdf9; --ink:#112423; --ink2:#46524f; --muted:#66706d; --line:#e6dfd2;
+  --accent:#1a6e6c; --accent-wash:#e1efec; --wash:#eee8dc; --axis:#cfc6b5;
+  --ember:#d9692f; --bar:#2a8f8c; --seq0:#e6f1ee; --seq1:#0f4a49;
+  --side-a:#0c2a2c; --side-b:#124443; --hero-a:#0c2a2c; --hero-b:#165150; }
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) { color-scheme: dark; --bg:#0b1718; --surface:#112221; --ink:#e8f1ef; --ink2:#b5c7c4; --muted:#8fa5a2; --line:#1f3433;
+    --accent:#6fd0ca; --accent-wash:#12302f; --wash:#162b2a; --axis:#2d4745;
+    --ember:#f08a4b; --bar:#49b3ae; --seq0:#143332; --seq1:#a5ebe4; --side-a:#071516; --side-b:#0b2323; --hero-a:#0a2123; --hero-b:#103a39; }
+}
+:root[data-theme="dark"] { color-scheme: dark; --bg:#0b1718; --surface:#112221; --ink:#e8f1ef; --ink2:#b5c7c4; --muted:#8fa5a2; --line:#1f3433;
+  --accent:#6fd0ca; --accent-wash:#12302f; --wash:#162b2a; --axis:#2d4745;
+  --ember:#f08a4b; --bar:#49b3ae; --seq0:#143332; --seq1:#a5ebe4; --side-a:#071516; --side-b:#0b2323; --hero-a:#0a2123; --hero-b:#103a39; }
+
+/* number tiles get the lake-to-ember edge */
+.tile { position: relative; overflow: hidden; padding-left: 20px; }
+.tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: linear-gradient(var(--accent), var(--ember)); }
+.tiles .tile:first-child .v { color: var(--ember); }
+.tag { border-color: var(--accent); color: var(--accent); }
+.how { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+details.tbl summary { color: var(--accent); }
+.five { border-left-color: var(--red); }

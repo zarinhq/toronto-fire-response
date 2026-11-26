@@ -50,7 +50,7 @@ function barChart(el, items, label) {
   let s = `<line x1="${L}" x2="${w - R}" y1="${h - bot}" y2="${h - bot}" stroke="${css("--axis")}"/>`;
   items.forEach((it, i) => {
     const x = L + i * (bw + gap), bh = (it.value / max) * (h - bot - top), y = h - bot - bh;
-    s += `<g data-tip="${esc(it.tip)}"><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${css("--blue")}"/>` +
+    s += `<g data-tip="${esc(it.tip)}"><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${css("--bar")}"/>` +
          `<rect x="${x}" y="${top - 8}" width="${bw}" height="${h - bot - top + 8}" fill="transparent"/></g>` +
          `<text x="${x + bw / 2}" y="${y - 8}" text-anchor="middle" font-size="15" font-weight="600" fill="${css("--ink")}">${it.text}</text>` +
          `<text x="${x + bw / 2}" y="${h - bot + 18}" text-anchor="middle" font-size="12.5" fill="${css("--ink2")}">${esc(it.label)}</text>` +

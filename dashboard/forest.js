@@ -28,7 +28,7 @@ function drawForest() {
   intervalRows(document.getElementById("c-forest"),
     checks.map((r, i) => ({
       label: CHECK_NAMES[r.check], v: r.per_km_pct, lo: r.lo, hi: r.hi, text: pc(r.per_km_pct),
-      col: css("--blue"), r: i ? 5 : 7, hollow: i > 0,
+      col: css("--bar"), r: i ? 5 : 7, hollow: i > 0,
       tip: `<b>${esc(CHECK_NAMES[r.check])}</b><br>${nf(r.n)} fires<br>${pc(r.per_km_pct)} per km (95% range ${pc(r.lo)} to ${pc(r.hi)})` })),
     { lo: 10, hi: 40, ticks: [10, 15, 20, 25, 30, 35, 40], fmt: (v) => v + "%", rowH: 42, leftPad: 20,
       label: "Effect of distance under different checks" });
