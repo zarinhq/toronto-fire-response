@@ -68,7 +68,7 @@ DRAW.quality = function () {
   // 4. the shuffle test: real data against shuffled neighbourhood labels
   const sh = D.shuffle, KN = D.kn;
   document.getElementById("shuffle-text").textContent =
-    `If the neighbourhood labels carry no information, shuffling them should give a similar picture. It does not: ${KN.shuffle_real_flagged} neighbourhoods are flagged in the real data, against ${KN.shuffle_mean_flagged.toFixed(1)} on average (and at most ${sh[2].flagged}) after shuffling.`;
+    `If the neighbourhood labels carry no information, shuffling them should give a similar picture. It does not: ${KN.shuffle_real_flagged} neighbourhoods are flagged in the real data, against ${KN.shuffle_mean_flagged.toFixed(2)} on average (and at most ${sh[2].flagged}) after shuffling. A second check does not depend on shrinkage. It measures how far apart the neighbourhood scores are (the spread). In the real data it is ${KN.shuffle_real_spread.toFixed(3)}. After shuffling the labels it is ${KN.shuffle_mean_spread.toFixed(3)} on average. So the real differences between neighbourhoods are about ${(KN.shuffle_real_spread / KN.shuffle_mean_spread).toFixed(1)} times wider than chance produces.`;
   const items = [
     { label: "Real data", v: sh[0].flagged, col: css("--red") },
     { label: "Shuffled, worst run", v: sh[2].flagged, col: css("--bar") },

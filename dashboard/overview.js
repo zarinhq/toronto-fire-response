@@ -33,7 +33,7 @@ DRAW.overview = function () {
       `Fairly sure of the direction, less sure of the size: ${low}–${high}% across the variations tested.`,
       "Estimated"],
     ["Do some places wait longer than distance explains?",
-      `Yes: <b>${KN.clearly_slow_count}</b> of 158 neighbourhoods are clearly slower and <b>${KN.clearly_fast_count}</b> clearly faster. With shuffled labels, a typical run flags only ${Math.round(KN.shuffle_mean_flagged)} (never more than 19), against ${KN.shuffle_real_flagged} for the real data.`,
+      `Yes: <b>${KN.clearly_slow_count}</b> of ${D.hoods.length} neighbourhoods are clearly slower and <b>${KN.clearly_fast_count}</b> clearly faster, ${KN.clearly_slow_count + KN.clearly_fast_count} in all. When the neighbourhood labels are shuffled, almost none stand out (an average of ${KN.shuffle_mean_flagged.toFixed(2)}, never more than ${D.shuffle.find((r) => r.what === "shuffled maximum").flagged}).`,
       "Fairly sure the differences are real. Each neighbourhood’s own number is less certain, which is why ranges are shown.",
       "Estimated"],
   ];

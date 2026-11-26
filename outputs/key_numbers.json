@@ -18,9 +18,9 @@
   "raw_top10_vs_adjusted_top10_overlap": 1,
   "seconds_per_km": 80.84231846289187,
   "share_at_shared_location": 0.6368187724528014,
-  "shuffle_mean_flagged": 7.917,
+  "shuffle_mean_flagged": 0.011,
   "shuffle_mean_spread": 0.02879386057905227,
-  "shuffle_real_flagged": 73,
+  "shuffle_real_flagged": 65,
   "shuffle_real_spread": 0.07366081140452593,
   "slow_and_high_risk": [
     "Flemingdon Park",

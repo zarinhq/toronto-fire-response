@@ -94,12 +94,14 @@ def run():
     # ---- check 8: shuffle test
     codes, _ = pd.factorize(d["neighbourhood_id"])
     n_per = np.bincount(codes)
-    sd_resid = d["resid"].std()
+    ids = d["neighbourhood_id"].to_numpy()
 
     def spread_and_flags(res):
+        # flags use the same rule as clearly_slow / clearly_fast in models.py:
+        # shrunk interval entirely above 0 (slow) or entirely below 0 (fast)
         means = np.bincount(codes, weights=res) / n_per
-        z = means / (sd_resid / np.sqrt(n_per))
-        return means.std(), int((np.abs(z) > 1.96).sum())
+        g = neighbourhood_delay(pd.DataFrame({"neighbourhood_id": ids, "resid": res}))
+        return means.std(), int(((g["lo_pct"] > 0) | (g["hi_pct"] < 0)).sum())
 
     real_spread, real_flags = spread_and_flags(d["resid"].to_numpy())
     rng = np.random.default_rng(config.SEED)
