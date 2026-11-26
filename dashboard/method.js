@@ -4,8 +4,8 @@ DRAW.method = function () {
 
   document.getElementById("p-method").innerHTML = `
     <h2>How this was made</h2>
-    <p class="sub">Everything on this page can be rebuilt from the City’s open files with one command.</p>
-    <div class="grid2">
+    
+    <div class="grid2" style="margin-top:12px">
       <div class="card"><h3>How the numbers were made</h3>
         <ol class="steps" style="margin-top:12px">
           <li><b>Measure the wait.</b> Alarm time to first-arrival time, for fires and explosions only.</li>
@@ -23,16 +23,12 @@ DRAW.method = function () {
           <li>The range sits entirely above zero, so it counts as <b>clearly slower than expected</b>. A neighbourhood whose range straddles zero would be called “not clear”.</li>
         </ol></div>
     </div>
-    <div class="grid2" style="margin-top:14px">
+    <div style="margin-top:14px">
       <div class="card"><h3>Download the results</h3>
         <p class="note">One row per neighbourhood: the adjusted delay with its range, median wait, number of incidents, average distance and the census measures.</p>
         <p><button class="btn" id="dl" type="button">Download neighbourhood results (CSV)</button></p>
-        <p class="note" id="dlmsg" role="status"></p></div>
-      <div class="card"><h3>Rebuild it yourself</h3>
-        <p class="note">With the project code and the City’s open files in place:</p>
-        <pre id="cmd">python run_all.py</pre>
-        <button class="btn alt" id="copy" type="button">Copy command</button>
-        <p class="note" id="copymsg" role="status" style="margin-bottom:0"></p></div>
+        <p class="note" id="dlmsg" role="status"></p>
+            <p class="note" style="margin-bottom:0">Everything here can be rebuilt from the City’s open files. The code and the instructions are in the <a href="https://github.com/zarinhq/toronto-fire-response"> GitHub repository</a>.</p></div>
     </div>
     <div class="card" style="margin-top:14px"><h3>Words used here</h3>
       <p class="note"><b>Raw wait:</b> the typical (median) wait with nothing adjusted. <b>Adjusted delay:</b> how much longer (or shorter) the typical wait is than the model expects for that distance, time of day and year. <b>Clearly slower:</b> the 95% range is entirely above zero. <b>Shrinkage:</b> a way of not over-reading neighbourhoods with few incidents. <b>Median:</b> the middle value, half of waits are shorter. <b>p90:</b> nine in ten waits are shorter than this.</p></div>`;
@@ -57,10 +53,5 @@ DRAW.method = function () {
     }
   });
 
-  // Copy the rebuild command
-  document.getElementById("copy").addEventListener("click", () => {
-    const m = document.getElementById("copymsg");
-    (navigator.clipboard ? navigator.clipboard.writeText("python run_all.py") : Promise.reject())
-      .then(() => (m.textContent = "Copied."), () => (m.textContent = "Select the text above and copy it."));
-  });
+
 };
