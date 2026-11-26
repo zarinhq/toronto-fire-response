@@ -28,7 +28,7 @@ let currentTab = "overview";
 function show(id) {
   if (!TABS.some((t) => t[0] === id)) id = "overview";
   currentTab = id;
-  TABS.forEach(([k]) => {
+  document.title = TABS.find((t) => t[0] === id)[1] + " · Toronto fire response";  TABS.forEach(([k]) => {
     const on = k === id;
     document.getElementById("p-" + k).hidden = !on;
     document.getElementById("t-" + k).setAttribute("aria-selected", on);

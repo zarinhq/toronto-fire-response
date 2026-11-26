@@ -222,3 +222,30 @@ details.tbl summary { color: var(--accent); }
 .searchbox .drop svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .results .listhead { position: sticky; top: 0; background: var(--surface); padding: 8px 14px; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
 .results { max-height: 320px; }
+/* the opening */
+.hero { display: grid; gap: 22px; grid-template-columns: minmax(0, 1fr); margin: 24px 0 22px; padding: 28px; border-radius: 22px; color: #fff;
+  background: radial-gradient(120% 140% at 100% 100%, rgba(217,105,47,.85) 0%, rgba(217,105,47,0) 42%), linear-gradient(100deg, var(--hero-a) 0%, var(--hero-b) 100%); }
+@media (min-width: 1040px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, .92fr); align-items: center; } }
+@media (max-width: 560px) { .hero { padding: 20px 16px; border-radius: 16px; } }
+.hero .eyebrow { color: #f2b27f; display: block; }
+.hero h1 { color: #fff; max-width: 15ch; }
+.hero .lede { color: #cfe3e0; }
+.ask { margin-top: 18px; }
+.ask label { display: block; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #cfe3e0; margin-bottom: 6px; }
+.ask .searchbox input { background: #fffdf9; color: #112423; border: 0; box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.ask .searchbox input:focus-visible { outline: 3px solid #f2b27f; outline-offset: 1px; }
+.chips.light { margin: 10px 0; }
+.chip.light { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.3); color: #fff; }
+.chip.light:hover { background: rgba(255,255,255,.2); color: #fff; }
+.answer { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); border-radius: 14px; padding: 13px 15px; font-size: 17px; line-height: 1.5; min-height: 64px; }
+.answer b { color: #fff; }
+.answer .hint { color: #cfe3e0; font-size: 14px; }
+.answer .chip { margin-top: 8px; display: inline-block; }
+.verdict-chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3); vertical-align: 1px; }
+.verdict-chip.slow { background: rgba(240,138,75,.28); border-color: #f2b27f; }
+.verdict-chip.fast { background: rgba(111,208,202,.2); border-color: #8fe0da; }
+.timeline { width: 100%; max-width: 760px; margin-top: 16px; display: block; }
+.hero-map { background: var(--surface); color: var(--ink); border-radius: 16px; padding: 14px 16px 12px; }
+.hero-map .charthead { align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+#hmap svg { width: 100%; height: auto; display: block; }
+#hmap path { stroke: var(--surface); stroke-width: .8; cursor: pointer; transition: fill .8s ease; }

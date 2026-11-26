@@ -38,7 +38,7 @@ DRAW.overview = function () {
       "Estimated"],
   ];
 
-  document.getElementById("p-overview").innerHTML = `
+  document.getElementById("p-overview").innerHTML = heroHTML() + `
     <div class="tiles">
       ${tiles.map(([v, l, t]) => `<div class="tile"><div class="v">${v}</div><div class="l">${l}</div><div class="tagrow">${tag(t)}</div></div>`).join("")}
     </div>
@@ -64,4 +64,5 @@ DRAW.overview = function () {
       <h3>What this page does not say</h3>
       <p class="note" style="margin:.3em 0 0">“Slower than expected” is not the same as “underserved”, and nothing here says anyone was put at risk. The file covers a subset of calls (about 1,900 a year), the census data is from 2021, and the risk measures are crude. The Data quality tab shows what could change the numbers.</p>
     </div>`;
+ wireHero();
 };
