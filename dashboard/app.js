@@ -8,6 +8,14 @@ const TABS = [
   ["quality", "Data quality", "Data quality and limits", ICON('<path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>')],
   ["method", "Method", "Method and download", ICON('<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/><path d="M7.5 15h9"/>')],
 ];
+// "Evidence behind the numbers": the three labels, explained once, in the footer.
+document.getElementById("evidence").innerHTML = `<h3>Evidence behind the numbers</h3>
+  <p>Every figure is labelled by how firm it is.</p>
+  <div class="pill-row">
+    <span>${tag("Measured")} counted directly from the data</span>
+    <span>${tag("Estimated")} from a model, with a range</span>
+    <span>${tag("Screening")} a rough first look, not a finding</span>
+  </div>`;
 
 const tablist = document.getElementById("tablist");
 TABS.forEach(([id, label, full, icon]) => {
